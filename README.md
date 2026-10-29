@@ -1,6 +1,24 @@
 # RWKV-RL-Search-R1
 
-在 Search-R1（NQ / HotpotQA）环境上给 RWKV 做 RL。
+在 Search-R1（NQ / HotpotQA）环境上给 RWKV-7 2.9B 做 SFT + GRPO。按 [SearchAgent Leaderboard](https://huggingface.co/spaces/TencentBAC/SearchAgent_Leaderboard) 协议评测（七集抽样，e5 top-3，贪心），两条路线目前都在 0.40 左右；Search-R1 论文 7B Base PPO 是 0.431。
+
+![两条路线的榜单协议七集平均](provenance/rl-lineage-20261029/figures/fig1_eval_lineage.png)
+
+## 文档
+
+| 文档 | 内容 |
+|---|---|
+| [全线总览](docs/rl-lineage.md) | **先看这篇**：两条路线、全部检查点的分集分数、训练曲线、上限与错题归因、下一步 |
+| [RL 状态 2026-10-29](docs/rl-status-2026-10-29.md) | 路线二 r2 评测、pass@8 上限、错题归因、夜间调参探针（结论：下一步上 Dr. GRPO） |
+| [SFT v2 规划](docs/sft-v2-plan.md) | 为什么从基础模型重做 SFT、数据管线、教师蒸馏 |
+| [RL 状态 2026-10-27 下午](docs/rl-status-2026-10-27-pm.md) | 对齐榜单协议、v4 结案、链路评测 |
+| [RL 状态 2026-10-27](docs/rl-status-2026-10-27.md) | v3b 结案、检索配置矩阵、e5 检索基建 |
+| [RL 状态 2026-10-26](docs/rl-status-2026-10-26.md) | v1、v2、v3b：筛题、两段式学习 |
+
+留存快照（训练指标、脚本副本、命令、校验和）：
+
+- [全线 RL 训练指标](provenance/rl-lineage-20261029/README.md)：重画图用 `.venv/bin/python scripts/plot_rl.py`
+- [SFT v2 数据与训练](provenance/sft-v2-20261027/README.md)
 
 ## 环境
 
@@ -41,5 +59,7 @@ uv run python retriever/bm25_server.py          # 127.0.0.1:8000/retrieve，接�
 - `data/`：Search-R1 数据（`PeterJinGo/nq_hotpotqa_train`）
 - `models/`：RWKV 权重
 - `outputs/`：评测和训练输出
-- `docs/`：实验报告。先看全线总览 [docs/rl-lineage.md](docs/rl-lineage.md)（两条 SFT + RL 路线、全部检查点、折线图、下一步）；最近一期是 [RL 状态 2026-10-29](docs/rl-status-2026-10-29.md)
-- `provenance/`：各阶段的留存快照（训练指标、脚本副本、命令、校验和）。全线训练指标在 `provenance/rl-lineage-20261029/`，重画图用 `.venv/bin/python scripts/plot_rl.py`
+- `docs/`：实验报告（索引见上面的「文档」）
+- `provenance/`：各阶段的留存快照
+- `scripts/`：蒸馏、评测、GRPO 客户端、筛题、画图脚本
+- `retriever/`：BM25 / e5 / e5 重排检索服务
