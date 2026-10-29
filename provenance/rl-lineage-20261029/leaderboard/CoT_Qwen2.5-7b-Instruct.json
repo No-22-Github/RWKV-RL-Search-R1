@@ -1,0 +1,33 @@
+{
+    "config": {
+        "model_dtype": "torch.float16",
+        "model_name": "CoT-Qwen2.5-7b-Instruct",
+        "model_sha": "main"
+    },
+    "results": {
+        "nq": {
+            "exact_match": 0.048
+        },
+        "triviaqa": {
+            "exact_match": 0.185
+        },
+        "popqa": {
+            "exact_match": 0.054
+        },
+        "hotpotqa": {
+            "exact_match": 0.092
+        },
+        "2wiki": {
+            "exact_match": 0.111
+        },
+        "musique": {
+            "exact_match": 0.022
+        },
+        "bamboogle": {
+            "exact_match": 0.232
+        },
+        "fictionalhot": {
+            "exact_match": 0.001
+        }
+    }
+}

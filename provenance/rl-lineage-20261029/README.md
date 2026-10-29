@@ -11,7 +11,8 @@
 | `runs/<run>/expected.jsonl` | 只有路线二 r2 和夜间探针有：每步期望 acc，即当步 16 题的题池标签平均（标签是 s100 在 T=1 下 8 次的正确率）；由 `scripts/export_expected.py` 在服务器上导出 |
 | `labels/questions.jsonl` | r2 和探针用的题池标签 |
 | `scripts/` | 跑路线二和夜间探针时用的脚本快照，以及画图脚本 |
-| `figures/` | 折线图，由 `scripts/plot_rl.py` 生成 |
+| `leaderboard/` | SearchAgent 榜单各家的原始评测 json（2026-10-29 从 Space 的 `eval-results/` 拉取） |
+| `figures/` | 折线图和榜单对比图，由 `scripts/plot_rl.py` 生成 |
 | `SHA256SUMS` | 服务器上大文件（题池、评测集、adapter、训练服务端）和本快照文件的校验和 |
 
 各检查点的评测摘要不在这里，统一放在 `outputs/upstream-eval/<检查点>/report.json`（已进库）。
@@ -49,6 +50,7 @@
 | `fig1_eval_lineage.png` | 两条路线的榜单协议七集平均，横轴是累计 RL 步数 |
 | `fig2_train_lineage.png` | 各段 RL 的训练 acc、生成长度、检索次数、格式正确率（10 步滑动平均），左右两列各一条路线 |
 | `fig3_probe_dynamics.png` | 夜间三组探针和 r2 前 30 步对照，含 acc 减期望 acc；× 是中途停训的位置 |
+| `fig4_leaderboard.png` | 和 SearchAgent 榜单各家的七集平均对比 |
 
 ## 复现训练和评测
 

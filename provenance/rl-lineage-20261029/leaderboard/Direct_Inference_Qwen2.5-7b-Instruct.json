@@ -1,0 +1,33 @@
+{
+    "config": {
+        "model_dtype": "torch.float16",
+        "model_name": "Direct-Inference-Qwen2.5-7b-Instruct",
+        "model_sha": "main"
+    },
+    "results": {
+        "nq": {
+            "exact_match": 0.134
+        },
+        "triviaqa": {
+            "exact_match": 0.408
+        },
+        "popqa": {
+            "exact_match": 0.140
+        },
+        "hotpotqa": {
+            "exact_match": 0.183
+        },
+        "2wiki": {
+            "exact_match": 0.250
+        },
+        "musique": {
+            "exact_match": 0.031
+        },
+        "bamboogle": {
+            "exact_match": 0.120
+        },
+        "fictionalhot": {
+            "exact_match": 0.001
+        }
+    }
+}

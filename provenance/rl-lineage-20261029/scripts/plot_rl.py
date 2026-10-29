@@ -3,6 +3,7 @@
   fig1_eval_lineage.png    两条路线的榜单协议七集平均，横轴是累计 RL 步数
   fig2_train_lineage.png   各段 RL 的训练指标（acc、生成长度、检索次数、格式正确率），左右两列各一条路线
   fig3_probe_dynamics.png  10-28 夜间调参探针前 30 步，和 r2 同题序对照（含 acc - 期望 acc）
+  fig4_leaderboard.png     和 SearchAgent 榜单各家的七集平均对比（榜单原始 json 在 leaderboard/）
 
 路线一：SFT v1 → v1（0–100）→ v2（从 v1-s100 的 adapter 起、服务端步数重新计，累计 100–352）
         → v3b（从 v2 的 200 续到 311，累计 300–411）→ v4（从 300 续到 416，累计 400–516）
@@ -59,6 +60,10 @@ ROUTE2 = [(0, "sft2-r16-lr3e-5-e2-greedy-t3", "SFT v2"), (50, "sft2-rl-s50-greed
           (170, "sft2r2-s170-greedy-t3", "s170"), (200, "sft2r2-s200-greedy-t3", "s200")]
 BASE = "lineage-base-greedy-t3"
 PAPER_7B_PPO = 0.431  # Search-R1 论文 7B Base PPO 的同七集平均
+# 榜单对比：只取检索类方法和 RAG 基线；七集 = 去掉 FictionalHot
+LB_METHODS = {"ReSeek", "ZeroSearch", "Search-R1", "RAG"}
+LB_SETS = ["nq", "triviaqa", "popqa", "hotpotqa", "2wiki", "musique", "bamboogle"]
+OURS_BEST = [("v4-s100-greedy-t3", "v4-s100"), ("sft2r2-s150-greedy-t3", "r2-s150")]
 
 
 def setup_style():
@@ -198,6 +203,38 @@ def draw_probe_dynamics(runs, path, max_step=30):
                   path, ncol=2)
 
 
+def draw_leaderboard(evals, lb_dir, path):
+    """七集平均对比：榜单各家（leaderboard/ 下从 Space 拉的原始 json）+ 我们两条路线的最好检查点"""
+    rows = []
+    for f in sorted(os.listdir(lb_dir)):
+        method, model = f[:-5].split("_", 1)
+        if method not in LB_METHODS:
+            continue
+        res = json.load(open(os.path.join(lb_dir, f)))["results"]
+        size = model.split("-")[1].upper()
+        rows.append((f"{method} · Qwen2.5-{size}", np.mean([res[k]["exact_match"] for k in LB_SETS]), False))
+    rows += [(f"我们 {lab} · RWKV-7 2.9B", eval_avg(evals, name), True) for name, lab in OURS_BEST]
+    rows.sort(key=lambda r: r[1])
+    fig, ax = plt.subplots(figsize=(9, 4.6), constrained_layout=True)
+    ys = np.arange(len(rows))
+    ax.barh(ys, [v for _, v, _ in rows], height=0.62, color=[BLUE if ours else "#b9b8b3" for *_, ours in rows], zorder=3)
+    for y, (label, v, ours) in zip(ys, rows):
+        ax.text(v + 0.004, y, f"{v:.3f}", va="center", fontsize=9, color=INK, fontweight="bold" if ours else None)
+    ax.set_yticks(ys, [label for label, *_ in rows])
+    for tick, (*_, ours) in zip(ax.get_yticklabels(), rows):
+        tick.set_color(INK if ours else INK2)
+        tick.set_fontweight("bold" if ours else "normal")
+    ax.set_xlim(0, 0.46)
+    ax.grid(axis="y", visible=False)
+    ax.set_axisbelow(True)
+    ax.tick_params(axis="y", length=0)
+    ax.set_title("和 SearchAgent 榜单比：七集平均 EM", color=INK)
+    ax.set_xlabel("不含 FictionalHot；榜单是完整测试集，我们每集抽 300 题（七集平均误差约 ±1.2 点）")
+    fig.savefig(path, dpi=160)
+    plt.close(fig)
+    print("写出", path)
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--root", default="provenance/rl-lineage-20261029")
@@ -212,6 +249,7 @@ def main():
     draw_eval_lineage(a.evals, os.path.join(out, "fig1_eval_lineage.png"))
     draw_train_lineage(runs, os.path.join(out, "fig2_train_lineage.png"))
     draw_probe_dynamics(runs, os.path.join(out, "fig3_probe_dynamics.png"))
+    draw_leaderboard(a.evals, os.path.join(a.root, "leaderboard"), os.path.join(out, "fig4_leaderboard.png"))
 
 
 if __name__ == "__main__":
