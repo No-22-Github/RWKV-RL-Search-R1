@@ -1,0 +1,155 @@
+{
+  "args": {
+    "data": "data/search_r1/test_upstream7_s300.parquet",
+    "limit": 0,
+    "n": 1,
+    "format": "g1k",
+    "think": "full",
+    "max_turns": 4,
+    "answer_example": false,
+    "max_turn_tokens": 2048,
+    "temperature": 1.0,
+    "top_p": 0.0,
+    "top_k": 1,
+    "topk": 3,
+    "api": "http://127.0.0.1:8100",
+    "adapter_id": "sft2-rl-s100",
+    "retriever": "http://127.0.0.1:8002",
+    "batch_size": 16,
+    "workers": 64,
+    "out": "outputs/upstream-eval/sft2-rl-s100-greedy-t3",
+    "greedy": true,
+    "final_answer_turn": true,
+    "max_obs_tokens": 500
+  },
+  "report": {
+    "all": {
+      "questions": 1844,
+      "samples": 1925,
+      "format_ok": 0.9901,
+      "acc@1(EM)": 0.3943,
+      "pass@1(EM)": 0.4035,
+      "pass@1(contains)": 0.4582,
+      "format_any@1": 0.9902,
+      "search_rate": 1.0,
+      "avg_search": 2.475,
+      "strict_call_rate": 0.9996,
+      "end": {
+        "answer": 1908,
+        "max_turns": 12,
+        "length": 5
+      }
+    },
+    "2wikimultihopqa": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.99,
+      "acc@1(EM)": 0.39,
+      "pass@1(EM)": 0.39,
+      "pass@1(contains)": 0.42,
+      "format_any@1": 0.99,
+      "search_rate": 1.0,
+      "avg_search": 3.203,
+      "strict_call_rate": 0.999,
+      "end": {
+        "answer": 298,
+        "max_turns": 2
+      }
+    },
+    "bamboogle": {
+      "questions": 125,
+      "samples": 125,
+      "format_ok": 1.0,
+      "acc@1(EM)": 0.432,
+      "pass@1(EM)": 0.432,
+      "pass@1(contains)": 0.448,
+      "format_any@1": 1.0,
+      "search_rate": 1.0,
+      "avg_search": 2.464,
+      "strict_call_rate": 1.0,
+      "end": {
+        "answer": 125
+      }
+    },
+    "hotpotqa": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 1.0,
+      "acc@1(EM)": 0.3867,
+      "pass@1(EM)": 0.3867,
+      "pass@1(contains)": 0.4333,
+      "format_any@1": 1.0,
+      "search_rate": 1.0,
+      "avg_search": 2.52,
+      "strict_call_rate": 1.0,
+      "end": {
+        "answer": 300
+      }
+    },
+    "musique": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.9633,
+      "acc@1(EM)": 0.1833,
+      "pass@1(EM)": 0.1833,
+      "pass@1(contains)": 0.2,
+      "format_any@1": 0.9633,
+      "search_rate": 1.0,
+      "avg_search": 3.177,
+      "strict_call_rate": 1.0,
+      "end": {
+        "max_turns": 8,
+        "answer": 289,
+        "length": 3
+      }
+    },
+    "nq": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.9967,
+      "acc@1(EM)": 0.3767,
+      "pass@1(EM)": 0.3767,
+      "pass@1(contains)": 0.46,
+      "format_any@1": 0.9967,
+      "search_rate": 1.0,
+      "avg_search": 2.03,
+      "strict_call_rate": 0.9984,
+      "end": {
+        "answer": 300
+      }
+    },
+    "popqa": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.9967,
+      "acc@1(EM)": 0.43,
+      "pass@1(EM)": 0.43,
+      "pass@1(contains)": 0.5,
+      "format_any@1": 0.9967,
+      "search_rate": 1.0,
+      "avg_search": 1.963,
+      "strict_call_rate": 1.0,
+      "end": {
+        "answer": 299,
+        "max_turns": 1
+      }
+    },
+    "triviaqa": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.99,
+      "acc@1(EM)": 0.5833,
+      "pass@1(EM)": 0.5833,
+      "pass@1(contains)": 0.6833,
+      "format_any@1": 0.99,
+      "search_rate": 1.0,
+      "avg_search": 1.96,
+      "strict_call_rate": 1.0,
+      "end": {
+        "answer": 297,
+        "max_turns": 1,
+        "length": 2
+      }
+    }
+  }
+}

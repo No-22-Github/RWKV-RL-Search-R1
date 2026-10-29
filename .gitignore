@@ -1,0 +1,44 @@
+# 白名单：默认不收，只放行小文件（代码、文档、留存快照、结果摘要）。
+# 大数据（data/ 17G）、权重（checkpoints/）、训练包（dist/）、outputs 明细都不进库，用 provenance/*/SHA256SUMS 核对。
+/*
+!/.gitignore
+!/.env.example
+!/.python-version
+!/README.md
+!/pyproject.toml
+!/uv.lock
+!/scripts/
+!/retriever/
+!/docs/
+!/provenance/
+
+# 结果摘要：评测 report.json、蒸馏 stats.json、训练包 manifest
+!/outputs/
+/outputs/**
+!/outputs/**/
+!/outputs/**/report.json
+!/outputs/**/stats.json
+!/data/
+/data/**
+!/data/**/
+!/data/**/manifest.json
+
+# 权重只收校验和
+!/checkpoints/
+/checkpoints/**
+!/checkpoints/**/
+!/checkpoints/**/SHA256SUMS
+
+# 白名单目录里也不收
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+*.pth
+*.parquet
+*.tar.gz
+
+# 本地的地址和密钥，永远不收
+.env
+.env.*
+!/.env.example

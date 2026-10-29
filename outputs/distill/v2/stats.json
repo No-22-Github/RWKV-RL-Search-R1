@@ -1,0 +1,52 @@
+{
+  "questions": 2000,
+  "filter": {
+    "kept": 1091,
+    "wrong": 510,
+    "max_steps": 223,
+    "long_think": 91,
+    "bad_action": 77,
+    "error: 400 Client Error: Bad Request for url: $API_BASE/chat/completions": 3,
+    "error: HTTPSConnectionPool(host='$API_BASE', port=443): Max retries exceeded with url: /provider/v1/chat/completions (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))": 1,
+    "error: 524 Server Error: <none> for url: $API_BASE/chat/completions": 3,
+    "no_search": 1
+  },
+  "teacher_em": 0.5936,
+  "avg_search": 2.318,
+  "search_hist": {
+    "1": 805,
+    "2": 460,
+    "3": 129,
+    "4": 348,
+    "5": 223,
+    "0": 28
+  },
+  "think_chars_p50_p90_max": [
+    598,
+    2200,
+    29564
+  ],
+  "args": {
+    "data": "data/sft/teacher-v2-2000.parquet",
+    "n_per_source": 0,
+    "sources": [
+      "nq",
+      "hotpotqa"
+    ],
+    "seed": 0,
+    "model": "Qwen/Qwen3.7-Flash",
+    "temperature": 0.3,
+    "max_tokens": 8192,
+    "reasoning_effort": null,
+    "teacher_suffix": true,
+    "quiet_suffix": false,
+    "max_steps": 5,
+    "topk": 3,
+    "retriever": "$RETRIEVER_URL",
+    "max_obs_tokens": 500,
+    "parallel": 16,
+    "min_search": 1,
+    "max_think_chars": 3000,
+    "out": "outputs/distill/v2"
+  }
+}

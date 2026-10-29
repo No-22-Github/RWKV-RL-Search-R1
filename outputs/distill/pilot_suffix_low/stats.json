@@ -1,0 +1,45 @@
+{
+  "questions": 40,
+  "filter": {
+    "wrong": 16,
+    "kept": 15,
+    "max_steps": 6,
+    "bad_action": 2,
+    "long_think": 1
+  },
+  "teacher_em": 0.4,
+  "avg_search": 2.275,
+  "search_hist": {
+    "1": 11,
+    "2": 10,
+    "4": 6,
+    "3": 12,
+    "0": 1
+  },
+  "think_chars_p50_p90_max": [
+    522,
+    1725,
+    4274
+  ],
+  "args": {
+    "data": "../data/search_r1/train.parquet",
+    "n_per_source": 20,
+    "sources": [
+      "nq",
+      "hotpotqa"
+    ],
+    "seed": 1,
+    "model": "Qwen/Qwen3.7-Flash",
+    "temperature": 0.3,
+    "max_tokens": 8192,
+    "reasoning_effort": "low",
+    "teacher_suffix": true,
+    "max_steps": 4,
+    "topk": 3,
+    "retriever": "http://127.0.0.1:8000",
+    "parallel": 16,
+    "min_search": 1,
+    "max_think_chars": 3000,
+    "out": "../outputs/distill/pilot_suffix_low"
+  }
+}

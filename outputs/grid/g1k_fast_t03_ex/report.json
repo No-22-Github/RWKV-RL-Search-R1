@@ -1,0 +1,74 @@
+{
+  "args": {
+    "data": "data/search_r1/test_sample.parquet",
+    "limit": 10,
+    "n": 8,
+    "format": "g1k",
+    "think": "fast",
+    "max_turns": 4,
+    "answer_example": true,
+    "max_turn_tokens": 512,
+    "temperature": 0.3,
+    "top_p": 0.5,
+    "top_k": 0,
+    "topk": 3,
+    "api": "$RWKV_API",
+    "retriever": "http://127.0.0.1:8000",
+    "batch_size": 64,
+    "workers": 4,
+    "out": "outputs/grid/g1k_fast_t03_ex"
+  },
+  "report": {
+    "all": {
+      "questions": 20,
+      "samples": 160,
+      "format_ok": 0.525,
+      "acc@1(EM)": 0.0,
+      "pass@8(EM)": 0.0,
+      "pass@8(contains)": 0.35,
+      "format_any@8": 0.55,
+      "search_rate": 0.95,
+      "avg_search": 2.825,
+      "strict_call_rate": 0.6062,
+      "end": {
+        "answer": 140,
+        "boundary": 8,
+        "length": 8,
+        "max_turns": 4
+      }
+    },
+    "hotpotqa": {
+      "questions": 10,
+      "samples": 80,
+      "format_ok": 0.55,
+      "acc@1(EM)": 0.0,
+      "pass@8(EM)": 0.0,
+      "pass@8(contains)": 0.3,
+      "format_any@8": 0.6,
+      "search_rate": 0.9,
+      "avg_search": 2.65,
+      "strict_call_rate": 0.5755,
+      "end": {
+        "answer": 60,
+        "boundary": 8,
+        "length": 8,
+        "max_turns": 4
+      }
+    },
+    "nq": {
+      "questions": 10,
+      "samples": 80,
+      "format_ok": 0.5,
+      "acc@1(EM)": 0.0,
+      "pass@8(EM)": 0.0,
+      "pass@8(contains)": 0.4,
+      "format_any@8": 0.5,
+      "search_rate": 1.0,
+      "avg_search": 3.0,
+      "strict_call_rate": 0.6333,
+      "end": {
+        "answer": 80
+      }
+    }
+  }
+}

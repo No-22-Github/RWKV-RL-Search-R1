@@ -1,0 +1,56 @@
+{
+ "inputs": [
+  {
+   "path": "../outputs/distill/v1/trajectories.jsonl",
+   "sha256": "7efbc0135d5a4af4e172fcabfa97229a974bbea35926630deadd2a4c592ec949"
+  },
+  {
+   "path": "../outputs/distill/pilot_suffix/trajectories.jsonl",
+   "sha256": "fc55cc04d4fdfae314bca93167874ac5d63ce277b171a64515c52e160ecea80b"
+  }
+ ],
+ "filter": {
+  "min_search": 1,
+  "max_think_chars": 3000
+ },
+ "splits": {
+  "train": {
+   "path": "../data/sft/searchr1-g1k-v1-pack-20261022/train.jsonl",
+   "sha256": "6857eb02303034bf9b92c50d4e76f03aff8180874923d9d762f938ff52000975",
+   "rows": 821,
+   "by_source": {
+    "hotpotqa": 496,
+    "nq": 325
+   },
+   "by_n_search": {
+    "1": 349,
+    "2": 283,
+    "3": 189
+   },
+   "tokens": {
+    "p50": 1568,
+    "p99": 3271,
+    "max": 3649
+   }
+  },
+  "validation": {
+   "path": "../data/sft/searchr1-g1k-v1-pack-20261022/validation.jsonl",
+   "sha256": "54ab218087fb2f41d5e9e95f1676aa7c7972102afd4ceabb33f51949a216126e",
+   "rows": 40,
+   "by_source": {
+    "hotpotqa": 20,
+    "nq": 20
+   },
+   "by_n_search": {
+    "1": 20,
+    "2": 9,
+    "3": 11
+   },
+   "tokens": {
+    "p50": 1472,
+    "p99": 3725,
+    "max": 3725
+   }
+  }
+ }
+}

@@ -1,0 +1,49 @@
+{
+  "questions": 100,
+  "filter": {
+    "kept": 49,
+    "wrong": 30,
+    "max_steps": 14,
+    "bad_action": 3,
+    "long_think": 3,
+    "error: 400 Client Error: Bad Request for url: $API_BASE/chat/completions": 1
+  },
+  "teacher_em": 0.5253,
+  "avg_search": 2.394,
+  "search_hist": {
+    "1": 44,
+    "4": 17,
+    "5": 14,
+    "2": 14,
+    "3": 9,
+    "0": 1
+  },
+  "think_chars_p50_p90_max": [
+    577,
+    2243,
+    10186
+  ],
+  "args": {
+    "data": "data/search_r1/train.parquet",
+    "n_per_source": 50,
+    "sources": [
+      "nq",
+      "hotpotqa"
+    ],
+    "seed": 101,
+    "model": "Qwen/Qwen3.7-Flash",
+    "temperature": 0.3,
+    "max_tokens": 8192,
+    "reasoning_effort": null,
+    "teacher_suffix": true,
+    "quiet_suffix": true,
+    "max_steps": 5,
+    "topk": 3,
+    "retriever": "$RETRIEVER_URL",
+    "max_obs_tokens": 500,
+    "parallel": 16,
+    "min_search": 1,
+    "max_think_chars": 3000,
+    "out": "outputs/distill/v2_pilot_quiet"
+  }
+}

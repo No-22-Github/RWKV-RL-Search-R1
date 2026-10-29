@@ -1,0 +1,46 @@
+{
+  "questions": 2000,
+  "filter": {
+    "kept": 843,
+    "wrong": 737,
+    "bad_action": 81,
+    "max_steps": 244,
+    "long_think": 89,
+    "error: 400 Client Error: Bad Request for url: $API_BASE/chat/completions": 6
+  },
+  "teacher_em": 0.4674,
+  "avg_search": 2.242,
+  "search_hist": {
+    "1": 596,
+    "2": 462,
+    "3": 658,
+    "4": 244,
+    "0": 34
+  },
+  "think_chars_p50_p90_max": [
+    576,
+    2300,
+    22051
+  ],
+  "args": {
+    "data": "../data/search_r1/train.parquet",
+    "n_per_source": 1000,
+    "sources": [
+      "nq",
+      "hotpotqa"
+    ],
+    "seed": 2,
+    "model": "Qwen/Qwen3.7-Flash",
+    "temperature": 0.3,
+    "max_tokens": 8192,
+    "reasoning_effort": null,
+    "teacher_suffix": true,
+    "max_steps": 4,
+    "topk": 3,
+    "retriever": "http://127.0.0.1:8000",
+    "parallel": 24,
+    "min_search": 1,
+    "max_think_chars": 3000,
+    "out": "../outputs/distill/v1"
+  }
+}

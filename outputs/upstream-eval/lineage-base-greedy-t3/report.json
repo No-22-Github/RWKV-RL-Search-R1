@@ -1,0 +1,170 @@
+{
+  "args": {
+    "data": "data/search_r1/test_upstream7_s300.parquet",
+    "limit": 0,
+    "n": 1,
+    "format": "g1k",
+    "think": "full",
+    "max_turns": 4,
+    "answer_example": false,
+    "max_turn_tokens": 2048,
+    "temperature": 1.0,
+    "top_p": 0.0,
+    "top_k": 1,
+    "topk": 3,
+    "api": "http://127.0.0.1:8100",
+    "adapter_id": null,
+    "retriever": "http://127.0.0.1:8002",
+    "batch_size": 16,
+    "workers": 64,
+    "out": "outputs/upstream-eval/lineage-base-greedy-t3",
+    "greedy": true,
+    "final_answer_turn": true,
+    "max_obs_tokens": 500
+  },
+  "report": {
+    "all": {
+      "questions": 1844,
+      "samples": 1925,
+      "format_ok": 0.1958,
+      "acc@1(EM)": 0.0519,
+      "pass@1(EM)": 0.0542,
+      "pass@1(contains)": 0.3259,
+      "format_any@1": 0.2034,
+      "search_rate": 0.787,
+      "avg_search": 2.732,
+      "strict_call_rate": 0.0139,
+      "end": {
+        "length": 542,
+        "answer": 445,
+        "max_turns": 925,
+        "boundary": 13
+      }
+    },
+    "2wikimultihopqa": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.2,
+      "acc@1(EM)": 0.0167,
+      "pass@1(EM)": 0.0167,
+      "pass@1(contains)": 0.3367,
+      "format_any@1": 0.2,
+      "search_rate": 0.8467,
+      "avg_search": 3.027,
+      "strict_call_rate": 0.0,
+      "end": {
+        "max_turns": 157,
+        "length": 70,
+        "answer": 71,
+        "boundary": 2
+      }
+    },
+    "bamboogle": {
+      "questions": 125,
+      "samples": 125,
+      "format_ok": 0.232,
+      "acc@1(EM)": 0.04,
+      "pass@1(EM)": 0.04,
+      "pass@1(contains)": 0.288,
+      "format_any@1": 0.232,
+      "search_rate": 0.816,
+      "avg_search": 2.872,
+      "strict_call_rate": 0.0111,
+      "end": {
+        "max_turns": 62,
+        "answer": 33,
+        "length": 28,
+        "boundary": 2
+      }
+    },
+    "hotpotqa": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.2233,
+      "acc@1(EM)": 0.0667,
+      "pass@1(EM)": 0.0667,
+      "pass@1(contains)": 0.28,
+      "format_any@1": 0.2233,
+      "search_rate": 0.83,
+      "avg_search": 2.807,
+      "strict_call_rate": 0.0059,
+      "end": {
+        "length": 77,
+        "max_turns": 140,
+        "answer": 82,
+        "boundary": 1
+      }
+    },
+    "musique": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.15,
+      "acc@1(EM)": 0.0267,
+      "pass@1(EM)": 0.0267,
+      "pass@1(contains)": 0.1067,
+      "format_any@1": 0.15,
+      "search_rate": 0.7133,
+      "avg_search": 2.527,
+      "strict_call_rate": 0.0158,
+      "end": {
+        "length": 112,
+        "max_turns": 142,
+        "answer": 46
+      }
+    },
+    "nq": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.17,
+      "acc@1(EM)": 0.0267,
+      "pass@1(EM)": 0.0267,
+      "pass@1(contains)": 0.32,
+      "format_any@1": 0.17,
+      "search_rate": 0.7867,
+      "avg_search": 2.75,
+      "strict_call_rate": 0.017,
+      "end": {
+        "length": 82,
+        "answer": 63,
+        "max_turns": 153,
+        "boundary": 2
+      }
+    },
+    "popqa": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.1533,
+      "acc@1(EM)": 0.0333,
+      "pass@1(EM)": 0.0333,
+      "pass@1(contains)": 0.3267,
+      "format_any@1": 0.1533,
+      "search_rate": 0.6833,
+      "avg_search": 2.457,
+      "strict_call_rate": 0.0258,
+      "end": {
+        "max_turns": 131,
+        "answer": 57,
+        "length": 111,
+        "boundary": 1
+      }
+    },
+    "triviaqa": {
+      "questions": 300,
+      "samples": 300,
+      "format_ok": 0.2633,
+      "acc@1(EM)": 0.1467,
+      "pass@1(EM)": 0.1467,
+      "pass@1(contains)": 0.55,
+      "format_any@1": 0.2633,
+      "search_rate": 0.85,
+      "avg_search": 2.77,
+      "strict_call_rate": 0.0229,
+      "end": {
+        "max_turns": 140,
+        "answer": 93,
+        "length": 62,
+        "boundary": 5
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "args": {
+    "server": "http://127.0.0.1:8848",
+    "retriever": "http://127.0.0.1:8000",
+    "data": "data/search_r1/train.parquet",
+    "out": "outputs/rl/sr1-v1",
+    "steps": 100,
+    "questions": 8,
+    "group": 8,
+    "max_turns": 4,
+    "max_turn_tokens": 1024,
+    "topk": 3,
+    "temperature": 1.0,
+    "lr": 2e-06,
+    "r_wrong": 0.0,
+    "r_invalid": -0.2,
+    "f1_weight": 0.0,
+    "std_norm": true,
+    "drop_zero_adv": true,
+    "kl_coef": 0.0,
+    "save_every": 10,
+    "checkpoint_every": 50,
+    "dump_every": 5,
+    "seed": 1234,
+    "timeout": 3600,
+    "ctx": 8192,
+    "max_batch": 64
+  },
+  "health": {
+    "backbone_loads": 1,
+    "chunk": 128,
+    "ctx": 8192,
+    "dtype": "bfloat16",
+    "max_batch": 64,
+    "mode": "miss",
+    "policies": [
+      {
+        "cached_prefixes": 0,
+        "step": 0,
+        "version": "a68d57be03e40b7666799600458d9b15:1:0"
+      }
+    ],
+    "policy_version": "a68d57be03e40b7666799600458d9b15:1:0",
+    "published_step": 0,
+    "reference_step": 0,
+    "reference_version": "a68d57be03e40b7666799600458d9b15:1:0",
+    "status": "ok",
+    "step": 0,
+    "vocab_size": 65536
+  }
+}

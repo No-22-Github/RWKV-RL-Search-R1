@@ -1,0 +1,69 @@
+{
+  "args": {
+    "data": "data/search_r1/test_sample.parquet",
+    "limit": 5,
+    "n": 8,
+    "think": "none",
+    "max_turns": 4,
+    "max_turn_tokens": 512,
+    "temperature": 1.0,
+    "top_p": 1.0,
+    "top_k": 0,
+    "topk": 3,
+    "api": "$RWKV_API",
+    "retriever": "http://127.0.0.1:8000",
+    "batch_size": 128,
+    "workers": 4,
+    "out": "outputs/smoke_none"
+  },
+  "report": {
+    "all": {
+      "questions": 10,
+      "samples": 80,
+      "format_ok": 0.3125,
+      "acc@1(mean)": 0.0375,
+      "pass@8": 0.1,
+      "format_any@k": 0.8,
+      "avg_search": 0.225,
+      "json_query_rate": 0.0,
+      "end": {
+        "length": 12,
+        "boundary": 38,
+        "answer": 27,
+        "max_turns": 3
+      }
+    },
+    "hotpotqa": {
+      "questions": 5,
+      "samples": 40,
+      "format_ok": 0.375,
+      "acc@1(mean)": 0.075,
+      "pass@8": 0.2,
+      "format_any@k": 1.0,
+      "avg_search": 0.275,
+      "json_query_rate": 0.0,
+      "end": {
+        "max_turns": 2,
+        "answer": 16,
+        "length": 8,
+        "boundary": 14
+      }
+    },
+    "nq": {
+      "questions": 5,
+      "samples": 40,
+      "format_ok": 0.25,
+      "acc@1(mean)": 0.0,
+      "pass@8": 0.0,
+      "format_any@k": 0.6,
+      "avg_search": 0.175,
+      "json_query_rate": 0.0,
+      "end": {
+        "length": 4,
+        "boundary": 24,
+        "answer": 11,
+        "max_turns": 1
+      }
+    }
+  }
+}

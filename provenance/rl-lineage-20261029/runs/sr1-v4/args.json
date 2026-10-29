@@ -1,0 +1,92 @@
+{
+  "args": {
+    "server": "http://127.0.0.1:8848",
+    "retriever": "http://127.0.0.1:8002",
+    "data": "outputs/filter/s300-e5/filtered.parquet",
+    "out": "outputs/rl/sr1-v4",
+    "steps": 200,
+    "questions": 16,
+    "group": 8,
+    "max_turns": 4,
+    "max_turn_tokens": 1024,
+    "topk": 5,
+    "temperature": 1.0,
+    "lr": 2e-06,
+    "r_wrong": 0.0,
+    "r_invalid": -0.2,
+    "f1_weight": 0.3,
+    "std_norm": true,
+    "drop_zero_adv": true,
+    "kl_coef": 0.0,
+    "save_every": 10,
+    "checkpoint_every": 50,
+    "dump_every": 5,
+    "seed": 1234,
+    "timeout": 3600,
+    "ctx": 8192,
+    "max_batch": 256
+  },
+  "health": {
+    "backbone_loads": 1,
+    "cache": {
+      "allocated_bytes": 4290707456,
+      "allocated_slots": 199,
+      "cached_prefixes": 199,
+      "capacity": 640,
+      "effective_capacity": 199,
+      "entry_bytes": 21561344,
+      "eviction_policy": "lru",
+      "evictions": 199332,
+      "free_slots": 0,
+      "hits": 67159,
+      "memory_limit_bytes": 4294967296,
+      "misses": 50408,
+      "retired_prefixes": 0,
+      "scope": "global",
+      "skipped_inserts": 0,
+      "used_bytes": 4290707456
+    },
+    "chunk": 128,
+    "ctx": 8192,
+    "default_max_tokens": 1024,
+    "default_stop": [
+      "</tool_call>",
+      "</answer>",
+      "\n\nUser:"
+    ],
+    "dtype": "bfloat16",
+    "gemm_mode": "bf16",
+    "gemm_tile_rows": 32,
+    "max_batch": 256,
+    "mode": "miss",
+    "policies": [
+      {
+        "cache_bytes": 0,
+        "cache_enabled": true,
+        "cached_prefixes": 0,
+        "step": 317,
+        "version": "8c000799901e3eecb8f1116e4a7715c0:1:17"
+      },
+      {
+        "cache_bytes": 4290707456,
+        "cache_enabled": true,
+        "cached_prefixes": 199,
+        "step": 318,
+        "version": "8c000799901e3eecb8f1116e4a7715c0:1:18"
+      }
+    ],
+    "policy_version": "8c000799901e3eecb8f1116e4a7715c0:1:18",
+    "published_step": 318,
+    "reference_cache_bytes": 0,
+    "reference_cache_enabled": false,
+    "reference_cached_prefixes": 0,
+    "reference_step": 300,
+    "reference_version": "8c000799901e3eecb8f1116e4a7715c0:1:0",
+    "status": "ok",
+    "step": 318,
+    "vocab_size": 65536,
+    "wkv_io_dtype": "bfloat16",
+    "wkv_kernel": "rwkv7_statepassing_clampw",
+    "wkv_state_dtype": "float32"
+  }
+}

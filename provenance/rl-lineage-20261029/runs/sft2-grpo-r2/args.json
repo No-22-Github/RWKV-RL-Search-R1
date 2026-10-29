@@ -1,0 +1,68 @@
+{
+  "args": {
+    "server": "http://127.0.0.1:8848",
+    "retriever": "http://127.0.0.1:8002",
+    "data": "outputs/filter/sft2-s100-e5t3/filtered.parquet",
+    "out": "outputs/rl/sft2-grpo-r2",
+    "steps": 100,
+    "questions": 16,
+    "group": 8,
+    "max_turns": 5,
+    "max_turn_tokens": 1024,
+    "topk": 3,
+    "max_obs_tokens": 500,
+    "temperature": 1.0,
+    "lr": 2e-06,
+    "r_wrong": 0.0,
+    "r_invalid": -0.2,
+    "f1_weight": 0.3,
+    "std_norm": true,
+    "drop_zero_adv": true,
+    "kl_coef": 0.0,
+    "save_every": 10,
+    "checkpoint_every": 50,
+    "dump_every": 5,
+    "seed": 1234,
+    "timeout": 3600,
+    "ctx": 12288,
+    "max_batch": 256
+  },
+  "health": {
+    "backbone_loads": 1,
+    "chunk": 128,
+    "ctx": 12288,
+    "default_max_tokens": 1024,
+    "default_stop": [
+      "</tool_call>",
+      "</answer>",
+      "\n\nUser:"
+    ],
+    "dtype": "bfloat16",
+    "gemm_mode": "bf16",
+    "gemm_tile_rows": 32,
+    "max_batch": 256,
+    "mode": "miss",
+    "policies": [
+      {
+        "cached_prefixes": 640,
+        "step": 181,
+        "version": "6cb6cc846ba6acc2843e55a570d14e52:1:81"
+      },
+      {
+        "cached_prefixes": 0,
+        "step": 182,
+        "version": "6cb6cc846ba6acc2843e55a570d14e52:1:82"
+      }
+    ],
+    "policy_version": "6cb6cc846ba6acc2843e55a570d14e52:1:82",
+    "published_step": 182,
+    "reference_step": 100,
+    "reference_version": "6cb6cc846ba6acc2843e55a570d14e52:1:0",
+    "status": "ok",
+    "step": 182,
+    "vocab_size": 65536,
+    "wkv_io_dtype": "bfloat16",
+    "wkv_kernel": "rwkv7_statepassing_clampw",
+    "wkv_state_dtype": "float32"
+  }
+}
