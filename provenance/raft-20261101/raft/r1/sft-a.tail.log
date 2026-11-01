@@ -1,0 +1,39 @@
+BF16 load layer=0 staging_mib=16
+BF16 load layer=1 staging_mib=16
+BF16 load layer=2 staging_mib=16
+BF16 load layer=3 staging_mib=16
+BF16 load layer=4 staging_mib=16
+BF16 load layer=5 staging_mib=16
+BF16 load layer=6 staging_mib=16
+BF16 load layer=7 staging_mib=16
+BF16 load layer=8 staging_mib=16
+BF16 load layer=9 staging_mib=16
+BF16 load layer=10 staging_mib=16
+BF16 load layer=11 staging_mib=16
+BF16 load layer=12 staging_mib=16
+BF16 load layer=13 staging_mib=16
+BF16 load layer=14 staging_mib=16
+BF16 load layer=15 staging_mib=16
+BF16 load layer=16 staging_mib=16
+BF16 load layer=17 staging_mib=16
+BF16 load layer=18 staging_mib=16
+BF16 load layer=19 staging_mib=16
+BF16 load layer=20 staging_mib=16
+BF16 load layer=21 staging_mib=16
+BF16 load layer=22 staging_mib=16
+BF16 load layer=23 staging_mib=16
+BF16 load layer=24 staging_mib=16
+BF16 load layer=25 staging_mib=16
+BF16 load layer=26 staging_mib=16
+BF16 load layer=27 staging_mib=16
+BF16 load layer=28 staging_mib=16
+BF16 load layer=29 staging_mib=16
+BF16 load layer=30 staging_mib=16
+BF16 load layer=31 staging_mib=16
+Optimizer: adam
+GEMM mode: bf16
+Micro-bsz: 1 packed lanes (no padding)
+WKV tape: shared across layers (recompute)
+
+saved: /mnt/nvme0n1/no22/rl-sr1-v2/outputs/raft/sft-a/adapter-final.pth
+complete: steps=768 skipped_short_samples=0 seed=1234

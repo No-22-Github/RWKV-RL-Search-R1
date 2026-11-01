@@ -11,6 +11,8 @@ rollout 和训练默认走 BF16 Tensor Core（--gemm-mode bf16，比 strict 快�
    server 合批生成一轮 → 本地截出动作 → BM25 检索 → 把检索结果接到历史后面，最多 max_turns 轮。
 2. 奖励：EM 答对 1；格式正确但答错 r_wrong；没给出合法答案（max_turns/截断/越界/坏调用）r_invalid。
 3. 组内归一化得到优势（GRPO），可选按 token 减去 kl_coef·(logp - logp_ref)。
+   --algorithm dr_grpo：不除 std，并把服务端的 1/N（N=本批可训练 token 数）换成固定常数
+   1/(questions·group·dr_len)，去掉长度偏差（Dr. GRPO, arXiv:2503.20783）。
 4. 一次 /v1/train（一次 Adam），再 /v1/publish 换成新策略。
 
 token 级拼接：生成部分直接用 server 返回的 token id（loss_mask=1），prompt 和检索结果
@@ -196,7 +198,8 @@ def advantages(rows: list[dict], a) -> None:
             if std < 1e-6:
                 r["adv"] = 0.0
             else:
-                r["adv"] = float((x - rs.mean()) / (std + 1e-6) if a.std_norm else x - rs.mean())
+                std_norm = a.std_norm and a.algorithm == "grpo"
+                r["adv"] = float((x - rs.mean()) / (std + 1e-6) if std_norm else x - rs.mean())
 
 
 def kl_shaping(rows: list[dict], srv: Server, ref_version: str, a) -> float:
@@ -251,6 +254,19 @@ def train_samples(rows: list[dict], a) -> list[dict]:
         else:
             samples.append({"turns": turns, "advantages": r["adv"]})
     return samples
+
+
+def dr_grpo_scale(samples: list[dict], a) -> tuple[int, float]:
+    """服务端 loss 除以本批可训练 token 数 N；每个优势乘 N/budget，净分母就成了常数 budget。
+    budget 按每步全部轨迹算（含丢掉的零优势组），有效组越多这一步就越大，和论文的批均值一致。"""
+    n = sum(sum(t["loss_mask"]) for s in samples for t in s["turns"])
+    scale = n / (a.questions * a.group * a.dr_len)
+    for s in samples:
+        if "advantages" in s["turns"][0]:  # kl_coef 的逐 token 优势
+            s["turns"] = [{**t, "advantages": [x * scale for x in t["advantages"]]} for t in s["turns"]]
+        else:
+            s["advantages"] *= scale
+    return n, scale
 
 
 def summarize(rows: list[dict]) -> dict:
@@ -309,6 +325,9 @@ def main():
     p.add_argument("--f1_weight", type=float, default=0.0, help="答错时按 F1 给部分分")
     p.add_argument("--seq_norm", action="store_true", help="优势乘 批内平均生成长度/本条长度，每条轨迹总权重相等")
     p.add_argument("--neg_scale", type=float, default=1.0, help="负优势乘这个系数（<1 抑制熵上涨）")
+    p.add_argument("--algorithm", choices=("grpo", "dr_grpo"), default="grpo",
+                   help="dr_grpo：优势不除 std，loss 分母换成常数 questions·group·dr_len（学习率约要调大 5 倍）")
+    p.add_argument("--dr_len", type=int, default=1024, help="dr_grpo 分母里每条轨迹的名义 token 数")
     p.add_argument("--no_std_norm", dest="std_norm", action="store_false", help="优势只减组均值，不除标准差")
     p.add_argument("--keep_zero_adv", dest="drop_zero_adv", action="store_false",
                    help="组内无差异的轨迹也送去训练（只增加 loss 分母，不贡献梯度）")
@@ -319,6 +338,8 @@ def main():
     p.add_argument("--seed", type=int, default=1234)
     p.add_argument("--timeout", type=float, default=3600)
     a = p.parse_args()
+    if a.algorithm == "dr_grpo" and a.seq_norm:
+        sys.exit("--seq_norm 和 dr_grpo 冲突：一个按轨迹等权，一个按常数归一化")
 
     os.makedirs(a.out, exist_ok=True)
     metrics_path = os.path.join(a.out, "metrics.jsonl")
@@ -358,6 +379,9 @@ def main():
         if a.kl_coef > 0:
             m["kl"] = round(kl_shaping(rows, srv, ref_version, a), 5)
         samples = train_samples(rows, a)
+        if a.algorithm == "dr_grpo" and samples:
+            n, scale = dr_grpo_scale(samples, a)
+            m["dr_grpo"] = {"masked_tokens": n, "scale": round(scale, 5)}
         t1 = time.time()
         if samples:
             lr = a.lr * min(1.0, (step + 1) / a.warmup_steps) if a.warmup_steps else a.lr

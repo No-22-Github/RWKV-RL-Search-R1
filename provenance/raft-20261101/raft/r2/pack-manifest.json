@@ -1,0 +1,48 @@
+{
+ "inputs": [
+  {
+   "path": "outputs/raft2/a-pool-n8/samples.jsonl",
+   "sha256": "99e8c741f13344a37e7b863ddcd46803b6f1bc000fb897ebcae5704fb97ba203"
+  },
+  {
+   "path": "/mnt/nvme0n1/no22/segments-sft2.jsonl",
+   "sha256": "f4085424236e5b3f8e6ae46cbff6debd79460e40337bd5410460bf130ce713ac"
+  }
+ ],
+ "args": {
+  "samples": "outputs/raft2/a-pool-n8/samples.jsonl",
+  "teacher": "/mnt/nvme0n1/no22/segments-sft2.jsonl",
+  "out": "outputs/raft2/pack",
+  "max_tokens": 6144,
+  "hard_rate": 0.375,
+  "easy_keep": 0.5,
+  "seed": 0
+ },
+ "filter": {
+  "wrong": 17793,
+  "ok": 14473,
+  "q_no_keep": 1084,
+  "q_easy_dropped": 386,
+  "end_answer": 27,
+  "too_long": 2,
+  "length": 1
+ },
+ "questions": 4423,
+ "rows": {
+  "raft": 3528,
+  "teacher": 1030
+ },
+ "raft_n_search": {
+  "0": 1,
+  "1": 1835,
+  "2": 1186,
+  "3": 298,
+  "4": 208
+ },
+ "raft_by_source": {
+  "nq": 1519,
+  "hotpotqa": 2009
+ },
+ "raft_max_tokens": 5853,
+ "train_sha256": "ffb2aaa5e75789fd8a262edaed25dccd94e77d3e10080cca245b4d55c6cbc9f3"
+}

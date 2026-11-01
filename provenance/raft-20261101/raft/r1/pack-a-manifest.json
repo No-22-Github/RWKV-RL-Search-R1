@@ -1,0 +1,43 @@
+{
+ "inputs": [
+  {
+   "path": "outputs/raft/s100-merged-n8/samples.jsonl",
+   "sha256": "d1d1adfbdbdbe8e84681f29a234c93d29ca91f05e6f3f6183c913de3c50816bc"
+  },
+  {
+   "path": "/mnt/nvme0n1/no22/segments-sft2.jsonl",
+   "sha256": "f4085424236e5b3f8e6ae46cbff6debd79460e40337bd5410460bf130ce713ac"
+  }
+ ],
+ "args": {
+  "samples": "outputs/raft/s100-merged-n8/samples.jsonl",
+  "teacher": "/mnt/nvme0n1/no22/segments-sft2.jsonl",
+  "out": "outputs/raft/pack-a",
+  "max_tokens": 6144,
+  "hard_rate": 0.375,
+  "seed": 0
+ },
+ "filter": {
+  "ok": 8780,
+  "wrong": 6571,
+  "q_no_keep": 197,
+  "end_answer": 33
+ },
+ "questions": 1923,
+ "rows": {
+  "raft": 2037,
+  "teacher": 1030
+ },
+ "raft_n_search": {
+  "1": 877,
+  "2": 822,
+  "3": 208,
+  "4": 130
+ },
+ "raft_by_source": {
+  "nq": 856,
+  "hotpotqa": 1181
+ },
+ "raft_max_tokens": 4111,
+ "train_sha256": "375ec1ad937135f2dec2029e6242c700b422a2502505ddfde6455b0748ed8400"
+}

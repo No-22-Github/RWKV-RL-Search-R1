@@ -1,0 +1,23 @@
+{
+  "sweep": [
+    {
+      "lr": "1e-5",
+      "steps": 16,
+      "ok": false
+    },
+    {
+      "lr": "2e-5",
+      "steps": 6,
+      "ok": false
+    },
+    {
+      "lr": "4e-5",
+      "steps": 5,
+      "ok": false
+    }
+  ],
+  "phase2": {
+    "lr": "2e-5",
+    "extra": "--neg_scale 0.5 --kl_coef 0.05"
+  }
+}

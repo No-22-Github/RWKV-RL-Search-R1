@@ -9,6 +9,8 @@
 #   INIT：起点 adapter（默认 SFT v2 RL s100）  DATA：题池（默认 sft2-s100-e5t3）
 #   CLIENT_EXTRA：额外传给 rl_grpo.py 的参数（如 "--f1_weight 0 --no_std_norm"）
 #   EVAL=0 跳过评测
+#   SRV_EXTRA：额外传给服务端的参数（如 "--micro-bsz 4"）  CACHE / CACHE_MB：前缀缓存条数和内存（默认 256 / 6144，
+#   每步轨迹数的 2 倍以上才不会每轮重新 prefill）
 set -u
 cd "$(dirname "$0")/.."
 PY=.venv/bin/python
@@ -20,6 +22,9 @@ INIT=${INIT:-rl-out/server/d53cd0acfc854114943d3b2a4e027a68_1-step-100/adapter.p
 DATA=${DATA:-outputs/filter/sft2-s100-e5t3/filtered.parquet}
 CLIENT_EXTRA=${CLIENT_EXTRA:-}
 EVAL=${EVAL:-1}
+SRV_EXTRA=${SRV_EXTRA:-}
+CACHE=${CACHE:-256}
+CACHE_MB=${CACHE_MB:-6144}
 [ -f .env ] && { set -a; . ./.env; set +a; }   # 地址和路径不入库，见 .env.example
 BIN=${TUNE_BIN:?先在 .env 里设 TUNE_BIN（rwkv_miss_tune_server 的路径）}
 MODEL=/mnt/nvme0n1/no22/rwkv7-g1k-2.9b-20260930-ctx25600.pth
@@ -46,13 +51,13 @@ if screen -ls | grep -q '\.infer\b'; then
   screen -S infer -X quit
   sleep 5
 fi
-say "探针 $NAME：lr=$LR steps=$STEPS seed=$SEED init=$INIT extra='$CLIENT_EXTRA'"
+say "探针 $NAME：lr=$LR steps=$STEPS seed=$SEED init=$INIT data=$DATA extra='$CLIENT_EXTRA' srv='$SRV_EXTRA' bin=$BIN"
 
 # ---------- 1) 训练服务端冷启动 ----------
 mkdir -p "$SRV_OUT"
 screen -dmS "probesrv" bash -c "cd $PWD && $BIN --model $MODEL --adapter $INIT --vocab $VOCAB \
-  --ctx 12288 --chunk 128 --max-batch 256 --cache-capacity 256 --cache-memory-mb 6144 \
-  --keep-versions 2 --output $SRV_OUT > $SRV_LOG 2>&1"
+  --ctx 12288 --chunk 128 --max-batch 256 --cache-capacity $CACHE --cache-memory-mb $CACHE_MB \
+  --keep-versions 2 --output $SRV_OUT $SRV_EXTRA > $SRV_LOG 2>&1"
 for _ in $(seq 1 60); do
   sleep 5
   curl -s -m 3 "$SERVER/health" | grep -q policy_version && break
